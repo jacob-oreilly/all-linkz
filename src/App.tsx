@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
+import { Button, TextField } from '@mui/material'
 
-function App() {
+const App = () => {
+  const [currentInput, setCurrentInput] = useState()
+  const [decidedUrl, setDecidedUrl] = useState()
+  const [buttonSubmitted, setButtenSubmitted] = useState(false)
+  const getCurrentValue = (e: any) => {
+    setCurrentInput(e.target.value)
+  }
+
+  const addNewPage = () => {
+    setButtenSubmitted(true)
+  }
+
+  useEffect(() => {
+    if (buttonSubmitted) {
+      setDecidedUrl(currentInput)
+      setButtenSubmitted(false)
+    }
+  })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style={{ padding: "20px" }}>The beginning of All Linkz</div>
+      <div><TextField onChange={getCurrentValue} id="url-input" label="page name input" variant="outlined" /></div>
+      <div><Button variant="contained" onClick={addNewPage}>Submit</Button></div>
+      <div>{decidedUrl}</div>
     </div>
   );
 }
